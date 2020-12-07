@@ -113,23 +113,27 @@ rolMethods.deleteRol = async (req, res) => {
             if (removed.remove()) {
                 return res.status(200).json({
                     status: true,
+                    show: true,
                     message: "El rol fue eliminado correctamente",
                 });
             } else {
                 return res.status(400).json({
                     status: false,
+                    show: true,
                     message: "Ha ocurrido un error intentalo nuevamente",
                 });
             }
         } catch (error) {
             return res.status(400).json({
                 status: false,
+                show: true,
                 message: error,
             });
         }
     } else {
         return res.status(400).json({
             status: false,
+            show: false,
             message: "El id es requerido",
         });
     }

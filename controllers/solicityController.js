@@ -6,6 +6,7 @@ const Rol = require("../models/Rol");
 const Appretice = require("../models/Appretice");
 const Solocity = require("../models/Solocity");
 const MotivesOrProhibition = require("../models/MotivesOrProhibitions");
+const mailController = require("../controllers/sendMails");
 
 solicityMethods.getDrawSolicity = async (req, res) => {
     const getSolicityDraw = await Solocity.findOne({ userID: req.userID, draw: true });
@@ -32,6 +33,7 @@ function getStatusDetail(value) {
 
 solicityMethods.changeSolicityStatus = async (req, res) => {
     const { solicityID, status } = req.body;
+    console.log(status);
     if (solicityID) {
         const getSolicity = await Solocity.findById(solicityID);
         const statusDetail = getStatusDetail(status);
@@ -45,6 +47,7 @@ solicityMethods.changeSolicityStatus = async (req, res) => {
             });
 
             if (update) {
+                mailController.solicityStatusChange(req.userID, statusDetail);
                 return res.status(200).json({
                     status: true,
                     message: "Se ha actualizado",
@@ -215,6 +218,7 @@ solicityMethods.saveSolicity = async (req, res) => {
                 },
             });
             if (updateSolicity) {
+                mailController.newSolicity(req.userID);
                 return res.json({
                     status: true,
                     message: "Se ha guardado correctamente la solicitud",
@@ -244,6 +248,7 @@ solicityMethods.saveSolicity = async (req, res) => {
         });
 
         if (await solicity.save()) {
+            mailController.newSolicity(req.userID);
             return res.json({
                 status: true,
                 message: "Se ha generado correctamente la solicitud",
@@ -264,7 +269,7 @@ solicityMethods.getSolicities = async (req, res) => {
         const solicities = await Solocity.find({ draw: false });
         return res.json({
             status: true,
-            solicities: solicities,
+            solicities: solicities.reverse(),
             message: "Solicities found",
         });
     } else {
@@ -272,7 +277,7 @@ solicityMethods.getSolicities = async (req, res) => {
             const solicities = await Solocity.find({ userID: req.userID, draw: false });
             return res.json({
                 status: true,
-                solicities: solicities,
+                solicities: solicities.reverse(),
                 message: "Solicities found",
             });
         } else {
@@ -378,17 +383,20 @@ solicityMethods.deleteMotiveOrProhibition = async (req, res) => {
             if (removed.remove()) {
                 return res.status(200).json({
                     status: true,
+                    show: true,
                     message: "El motivo o prohibición fue eliminado correctamente",
                 });
             } else {
                 return res.status(400).json({
                     status: false,
+                    show: true,
                     message: "Ha ocurrido un error intentalo nuevamente",
                 });
             }
         } catch (error) {
             return res.status(400).json({
                 status: false,
+                show: true,
                 message: error,
             });
         }

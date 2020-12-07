@@ -79,7 +79,7 @@ templateMethods.createTemplate = async (req, res) => {
 };
 
 templateMethods.updateTemplate = async (req, res) => {
-    const { templateID , templateName, template } = req.body;
+    const { templateID, templateName, template } = req.body;
     if (templateID) {
         try {
             const getTemplate = await Template.findById(templateID);

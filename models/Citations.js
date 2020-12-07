@@ -21,6 +21,9 @@ const citationSchema = new Schema({
         type: String,
         required: true,
     },
+    minute: {
+        type: String,
+    },
     description: String,
     createdAt: {
         type: Date,

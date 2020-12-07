@@ -9,7 +9,15 @@ const mailSchema = new Schema({
         type: String,
         required: true,
     },
-    mailType: {
+    notification: {
+        type: String,
+        required: true,
+    },
+    subject: {
+        type: String,
+        required: true,
+    },
+    message: {
         type: String,
         required: true,
     },
@@ -19,5 +27,4 @@ const mailSchema = new Schema({
     },
 });
 
-
-module.exports = model('Mail' , mailSchema);
+module.exports = model("Mail", mailSchema);

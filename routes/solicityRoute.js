@@ -12,7 +12,7 @@ const {
     updateMotiveOrProhibition,
     deleteMotiveOrProhibition,
     uploadSolicityFiles,
-    getMotiverOrProhibition
+    getMotiverOrProhibition,
 } = require("../controllers/solicityController");
 const uploadSolicities = require("../controllers/uploads/solicityUploadFiles");
 

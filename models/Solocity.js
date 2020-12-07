@@ -15,6 +15,9 @@ const appreticeSchema = new Schema({
         type: Boolean,
         default: true,
     },
+    citation: {
+        type: String
+    },
     statusDetail: {
         type: String,
         default: "Pendiente",
