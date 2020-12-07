@@ -8,7 +8,6 @@ const userRoles = require("../config/userRoles");
 const { promisify } = require("util");
 const unlinkAsync = promisify(fs.unlink);
 const parser = new xml2js.Parser();
-const path = require("path");
 
 async function getInstructorRolID() {
     const rolCapacity = userRoles.filter((rol) => {
