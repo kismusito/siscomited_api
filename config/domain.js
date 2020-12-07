@@ -1,2 +1,2 @@
-const domain = "http://localhost:4000/";
+const domain = "https://siscomited.herokuapp.com/";
 module.exports = domain;
