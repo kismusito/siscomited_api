@@ -10,10 +10,9 @@ function generateRamdom(n) {
     }
     return ramdomCode;
 }
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, "assets/img"));
+        cb(null, path.join(__dirname, "/../../assets/img"));
     },
     filename: function (req, file, cb) {
         cb(null, generateRamdom(40) + "-" + path.extname(file.originalname));

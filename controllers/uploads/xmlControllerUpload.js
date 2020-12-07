@@ -13,7 +13,7 @@ function generateRamdom(n) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, "assets/XML"));
+        cb(null, path.join(__dirname, "/../../assets/XML"));
     },
     filename: function (req, file, cb) {
         cb(null, generateRamdom(40) + "-" + path.extname(file.originalname));
