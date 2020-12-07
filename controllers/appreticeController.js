@@ -197,7 +197,7 @@ async function saveAppretices(arr) {
 
 appreticeMethods.uploadAppretices = async (req, res) => {
     if (req.file) {
-        const uri = "../api/assets/XML/" + req.file.filename;
+        const uri = __dirname + "/../assets/XML/" + req.file.filename;
         fs.readFile(uri, (err, data) => {
             parser.parseString(data, async (err, result) => {
                 const readJxML = result.Workbook.Worksheet[0].Table[0].Row;

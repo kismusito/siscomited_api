@@ -8,6 +8,7 @@ const userRoles = require("../config/userRoles");
 const { promisify } = require("util");
 const unlinkAsync = promisify(fs.unlink);
 const parser = new xml2js.Parser();
+const path = require("path");
 
 async function getInstructorRolID() {
     const rolCapacity = userRoles.filter((rol) => {
@@ -77,7 +78,7 @@ async function saveInstructors(arr) {
 
 instructorMethods.uploadInstructors = async (req, res) => {
     if (req.file) {
-        const uri = "../api/assets/XML/" + req.file.filename;
+        const uri = __dirname + "/../assets/XML/" + req.file.filename;
         fs.readFile(uri, (err, data) => {
             parser.parseString(data, async (err, result) => {
                 const readJxML = result.Workbook.Worksheet[0].Table[0].Row;
@@ -167,10 +168,10 @@ instructorMethods.searchInstructors = async (req, res) => {
 
 instructorMethods.searchInstructor = async (req, res) => {
     const { instructor } = req.body;
-    console.log(instructor)
+    console.log(instructor);
     if (instructor) {
         const getSearchedInstructor = await Instructor.findOne({ _id: instructor });
-        console.log(getSearchedInstructor)
+        console.log(getSearchedInstructor);
         if (getSearchedInstructor) {
             return res.json({
                 status: true,
