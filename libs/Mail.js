@@ -10,6 +10,14 @@ async function Mail(template) {
         },
     });
 
+    console.log({
+        service: "gmail",
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD,
+        },
+    });
+
     const destinatary = await transport.sendMail({
         from: '"Siscomited " ' + process.env.EMAIL,
         to: template.mails,
